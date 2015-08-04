@@ -1,0 +1,29 @@
+{
+  "name": "puzzlemate",
+  "version": "1.0.0",
+  "description": "Interactively create chess puzzle data.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dalkire/puzzlemate.git"
+  },
+  "author": "David Alkire",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/dalkire/puzzlemate/issues"
+  },
+  "homepage": "https://github.com/dalkire/puzzlemate",
+  "dependencies": {
+    "express": "^4.13.2",
+    "hogan-express": "^0.5.2",
+    "mustache": "^2.1.3",
+    "tungstenjs": "^0.3.3",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "webpack": "^1.10.5"
+  }
+}
