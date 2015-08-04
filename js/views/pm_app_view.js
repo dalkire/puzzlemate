@@ -5,13 +5,12 @@
 
 var TungstenBackboneBase = require('tungstenjs/adaptors/backbone');
 var View = TungstenBackboneBase.View;
-// var BoardView = require('./pm_board_view');
-// var _ = require('underscore');
+var BoardView = require('./BoardView');
 
 var AppView = View.extend({
-  // childViews: {
-  //   'js-board-view': BoardView
-  // },
+  childViews: {
+    'js-board-view': BoardView
+  },
   events: {
     'click .js-clicker': 'clickedMyApp'
   },
@@ -20,4 +19,5 @@ var AppView = View.extend({
     this.model.set('name', 'horatio');
   }
 });
+
 module.exports = AppView;

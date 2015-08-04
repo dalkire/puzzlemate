@@ -45,8 +45,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppView = __webpack_require__(1);
-	var AppModel = __webpack_require__(80);
-	var template = __webpack_require__(81);
+	var AppModel = __webpack_require__(81);
+	var template = __webpack_require__(82);
 
 	module.exports = new AppView({
 	  el: '#app',
@@ -66,13 +66,12 @@
 
 	var TungstenBackboneBase = __webpack_require__(2);
 	var View = TungstenBackboneBase.View;
-	// var BoardView = require('./pm_board_view');
-	// var _ = require('underscore');
+	var BoardView = __webpack_require__(80);
 
 	var AppView = View.extend({
-	  // childViews: {
-	  //   'js-board-view': BoardView
-	  // },
+	  childViews: {
+	    'js-board-view': BoardView
+	  },
 	  events: {
 	    'click .js-clicker': 'clickedMyApp'
 	  },
@@ -81,6 +80,7 @@
 	    this.model.set('name', 'horatio');
 	  }
 	});
+
 	module.exports = AppView;
 
 
@@ -24381,6 +24381,27 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
+	* Full Chessboard View
+	*/
+	'use strict';
+
+	var TungstenBackboneBase = __webpack_require__(2);
+	var View = TungstenBackboneBase.View;
+
+	var BoardView = View.extend({
+	  events: {
+	    // 'click .js-clicker': 'clickedMyApp'
+	  }
+	});
+
+	module.exports = BoardView;
+
+
+/***/ },
+/* 81 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
 	 * Todo App Demo for Tungsten.js
 	 */
 	'use strict';
@@ -24398,13 +24419,13 @@
 
 
 /***/ },
-/* 81 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Template=__webpack_require__(82);var template=new Template([{"t":7,"e":"a","a":{"class":"js-clicker"},"f":["click me"]},"\n",{"t":7,"e":"div","f":["App view. Name: ",{"t":2,"r":"name"}]},"\n"]);module.exports=template;
+	var Template=__webpack_require__(83);var template=new Template([{"t":7,"e":"a","a":{"class":"js-clicker"},"f":["click me"]},"\n",{"t":7,"e":"div","f":["App view. Name: ",{"t":2,"r":"name"}]},"\n",{"t":8,"r":"BoardView"},"\n"]);module.exports=template;template.setPartials({"BoardView":__webpack_require__(88)});
 
 /***/ },
-/* 82 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -24415,8 +24436,8 @@
 	'use strict';
 
 	var _ = __webpack_require__(5);
-	var templateToVdom = __webpack_require__(83);
-	var ractiveTypes = __webpack_require__(84);
+	var templateToVdom = __webpack_require__(84);
+	var ractiveTypes = __webpack_require__(85);
 	var Context = __webpack_require__(8);
 	var logger = __webpack_require__(17);
 
@@ -24628,7 +24649,7 @@
 	module.exports = Template;
 
 /***/ },
-/* 83 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -24642,9 +24663,9 @@
 	var tungsten = __webpack_require__(10);
 	var Context = __webpack_require__(8);
 	var logger = __webpack_require__(17);
-	var ractiveTypes = __webpack_require__(84);
+	var ractiveTypes = __webpack_require__(85);
 	var htmlToVdom = __webpack_require__(63);
-	var FocusHook = __webpack_require__(85);
+	var FocusHook = __webpack_require__(86);
 	var exports = {};
 
 	var HTMLCommentWidget = __webpack_require__(64);
@@ -25033,7 +25054,7 @@
 	module.exports = exports;
 
 /***/ },
-/* 84 */
+/* 85 */
 /***/ function(module, exports) {
 
 	/**
@@ -25105,7 +25126,7 @@
 	module.exports = ractiveTypes;
 
 /***/ },
-/* 85 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -25117,7 +25138,7 @@
 
 	'use strict';
 
-	var featureDetect = __webpack_require__(86);
+	var featureDetect = __webpack_require__(87);
 
 	var isiOS = (function() {
 	  if (typeof featureDetect.isiOS === 'function') {
@@ -25148,7 +25169,7 @@
 
 
 /***/ },
-/* 86 */
+/* 87 */
 /***/ function(module, exports) {
 
 	/**
@@ -25165,6 +25186,12 @@
 	    return /iPhone|iPad|iPod/i.test(navigator.userAgent);
 	  }
 	};
+
+/***/ },
+/* 88 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Template=__webpack_require__(83);var template=new Template([{"t":7,"e":"h2","f":["Board View"]},"\n"]);module.exports=template;
 
 /***/ }
 /******/ ]);
