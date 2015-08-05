@@ -3,7 +3,8 @@
   var data = {
     name: 'David Alkire',
     numRows: 17,
-    numCols: 14
+    numCols: 14,
+    count: 7
   };
 
   if (typeof window === 'undefined') {

@@ -49,9 +49,10 @@
 	var template = __webpack_require__(85);
 
 	module.exports = new AppView({
-	  el: '#app',
+	  el: '#appwrapper',
 	  template: template,
-	  model: new AppModel(window.data)
+	  model: new AppModel(window.data),
+	  dynamicInitialize: true
 	});
 
 
@@ -77,6 +78,7 @@
 	  },
 	  clickedMyApp: function () {
 	    console.log('clicked');
+	console.log(this);
 	    this.model.set('name', 'horatio');
 	  }
 	});
@@ -24389,10 +24391,15 @@
 	var BoardView = View.extend({
 	  model: new BoardModel(),
 	  events: {
-	    'click .js-modle': 'clickedthis'
+	    'click .js-modle': 'clickedthis',
+	    'click .js-bv-header': 'handleHeaderClick'
 	  },
 	  clickedthis: function () {
-	    this.model.set('modeldata', 'MMMODELTA');
+	    console.log('clicked js-modle');
+	    this.model.set('count', 500);
+	  },
+	  handleHeaderClick: function () {
+	    console.log('header click');
 	  }
 	});
 
@@ -24408,32 +24415,35 @@
 	var _ = __webpack_require__(83);
 
 	var BoardModel = Model.extend({
-	  initialize: function () {
-	    this.board = this.initBoard();
-	    this.printSquares();
-	  },
-	  initBoard: function () {
-	    var board = [[],[],[],[],[],[],[],[]];
-	    var columns = ['a','b','c','d','e','f','g','h'];
-
-	    for (var i = 0; i < 8; i++) {
-	      for (var j = 0; j < 8; j++) {
-	        board[i][j] = new SquareModel({
-	          id: columns[j] + (i + 1)
-	        });
-	      }
-	    }
-
-	    return board;
-	  },
-	  printSquares: function () {
-	    console.log('print squares', this.board);
-	    _.each(this.board, function (row) {
-	      _.each(row, function (square) {
-	        // console.log(square.get('id'));
-	      });
-	    });
+	  setCount: function (n) {
+	    this.set('count', n);
 	  }
+	  // initialize: function () {
+	  //   this.board = this.initBoard();
+	  //   this.printSquares();
+	  //   this.modeldata = 'inmodel';
+	  // },
+	  // initBoard: function () {
+	  //   var board = [[],[],[],[],[],[],[],[]];
+	  //   var columns = ['a','b','c','d','e','f','g','h'];
+
+	  //   for (var i = 0; i < 8; i++) {
+	  //     for (var j = 0; j < 8; j++) {
+	  //       board[i][j] = new SquareModel({
+	  //         id: columns[j] + (i + 1)
+	  //       });
+	  //     }
+	  //   }
+
+	  //   return board;
+	  // },
+	  // printSquares: function () {
+	  //   _.each(this.board, function (row) {
+	  //     _.each(row, function (square) {
+	  //       // console.log(square.get('id'));
+	  //     });
+	  //   });
+	  // }
 	});
 
 	module.exports = BoardModel;
@@ -26013,11 +26023,15 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Model = __webpack_require__(2).Model;
+	var BoardModel = __webpack_require__(81);
 	var _ = __webpack_require__(83);
 
 	var AppModel = Model.extend({
+	  relations: {
+	    boardModel: BoardModel
+	  },
 	  initialize: function () {
-	    this.set('name', 'Replaced Name');
+	    this.set('count', 1);
 	  }
 	});
 
@@ -26797,7 +26811,7 @@
 /* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Template=__webpack_require__(86);var template=new Template([{"t":7,"e":"h2","f":["Board View"]},"\n"]);module.exports=template;
+	var Template=__webpack_require__(86);var template=new Template([{"t":7,"e":"div","a":{"class":"js-board-view"},"f":["\n    ",{"t":7,"e":"div","a":{"class":"js-bv-header"},"f":["Board View: ",{"t":2,"r":"count"}]},"\n    ",{"t":7,"e":"a","a":{"class":"js-modle"},"f":["here"]},"\n  ",{"t":2,"r":"modeldata"},"\n"]},"\n"]);module.exports=template;
 
 /***/ }
 /******/ ]);

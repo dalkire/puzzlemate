@@ -16,6 +16,7 @@ var AppView = View.extend({
   },
   clickedMyApp: function () {
     console.log('clicked');
+console.log(this);
     this.model.set('name', 'horatio');
   }
 });
