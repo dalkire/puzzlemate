@@ -17,7 +17,6 @@ _.forEach(fs.readdirSync('templates'), function(fileName) {
   partials[name] = name;
 });
 
-console.log(partials);
 app.set('partials', partials);
 
 var data = require('./js/data');
