@@ -4,7 +4,7 @@ var _ = require('underscore');
 
 var AppModel = Model.extend({
   relations: {
-    boardModel: BoardModel
+    board: BoardModel
   },
   initialize: function () {
     this.set('count', 1);

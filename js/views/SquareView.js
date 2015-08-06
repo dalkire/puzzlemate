@@ -3,15 +3,8 @@
 */
 var View = require('tungstenjs/adaptors/backbone').View;
 var BoardModel = require('../models/BoardModel');
-var RowView = require('../views/RowView');
 
 var BoardView = View.extend({
-  childViews: {
-    'js-row-view': RowView
-  },
-  // relations: {
-  //   rows: Rows
-  // },
   model: new BoardModel(),
   events: {
     'click .js-modle': 'clickedthis',

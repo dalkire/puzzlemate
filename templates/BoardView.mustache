@@ -1,5 +1,7 @@
 <div class="js-board-view">
     <div class="js-bv-header">Board View: {{count}}</div>
     <a class="js-modle">here</a>
-  {{modeldata}}
+    {{#board}}
+        {{> RowView}}
+    {{/board}}
 </div>

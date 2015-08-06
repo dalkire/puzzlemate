@@ -1,8 +1,11 @@
 var Model = require('tungstenjs/adaptors/backbone').Model;
-var SquareModel = require('../models/SquareModel.js');
-var _ = require('underscore');
+var Rows = require('../collections/Rows');
+// var _ = require('underscore');
 
 var BoardModel = Model.extend({
+  relations: {
+    rows: Rows
+  },
   setCount: function (n) {
     this.set('count', n);
   }

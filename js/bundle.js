@@ -45,14 +45,13 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppView = __webpack_require__(1);
-	var AppModel = __webpack_require__(84);
-	var template = __webpack_require__(85);
+	var AppModel = __webpack_require__(88);
+	var template = __webpack_require__(90);
 
 	module.exports = new AppView({
 	  el: '#appwrapper',
 	  template: template,
-	  model: new AppModel(window.data),
-	  dynamicInitialize: true
+	  model: new AppModel(window.data)
 	});
 
 
@@ -24387,8 +24386,15 @@
 	*/
 	var View = __webpack_require__(2).View;
 	var BoardModel = __webpack_require__(81);
+	var RowView = __webpack_require__(86);
 
 	var BoardView = View.extend({
+	  childViews: {
+	    'js-row-view': RowView
+	  },
+	  // relations: {
+	  //   rows: Rows
+	  // },
 	  model: new BoardModel(),
 	  events: {
 	    'click .js-modle': 'clickedthis',
@@ -24411,10 +24417,13 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Model = __webpack_require__(2).Model;
-	var SquareModel = __webpack_require__(82);
-	var _ = __webpack_require__(83);
+	var Rows = __webpack_require__(82);
+	// var _ = require('underscore');
 
 	var BoardModel = Model.extend({
+	  relations: {
+	    rows: Rows
+	  },
 	  setCount: function (n) {
 	    this.set('count', n);
 	  }
@@ -24453,6 +24462,56 @@
 /* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	 * Collection of board rows.
+	 */
+	var Collection = __webpack_require__(2).Collection;
+	var RowModel = __webpack_require__(83);
+
+	var Rows = Collection.extend({
+	  model: RowModel
+	});
+
+	module.exports = Rows;
+
+
+/***/ },
+/* 83 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Model = __webpack_require__(2).Model;
+	var Squares = __webpack_require__(84);
+
+	var Row = Model.extend({
+	  relations: {
+	    squares: Squares
+	  }
+	});
+
+	module.exports = Row;
+
+
+/***/ },
+/* 84 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Collection of row squares.
+	 */
+	var Collection = __webpack_require__(2).Collection;
+	var SquareModel = __webpack_require__(85);
+
+	var Squares = Collection.extend({
+	  model: SquareModel
+	});
+
+	module.exports = Squares;
+
+
+/***/ },
+/* 85 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var Model = __webpack_require__(2).Model;
 
 	var Square = Model.extend({
@@ -24465,7 +24524,76 @@
 
 
 /***/ },
-/* 83 */
+/* 86 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Full Chessboard View
+	 */
+	var View = __webpack_require__(2).View;
+	var RowModel = __webpack_require__(83);
+	var SquareView = __webpack_require__(87);
+
+	var RowView = View.extend({
+	  childViews: {
+	    'js-square-view': SquareView
+	  },
+	  model: new RowModel()
+	});
+
+	module.exports = RowView;
+
+
+/***/ },
+/* 87 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	* Full Chessboard View
+	*/
+	var View = __webpack_require__(2).View;
+	var BoardModel = __webpack_require__(81);
+
+	var BoardView = View.extend({
+	  model: new BoardModel(),
+	  events: {
+	    'click .js-modle': 'clickedthis',
+	    'click .js-bv-header': 'handleHeaderClick'
+	  },
+	  clickedthis: function () {
+	    console.log('clicked js-modle');
+	    this.model.set('count', 500);
+	  },
+	  handleHeaderClick: function () {
+	    console.log('header click');
+	  }
+	});
+
+	module.exports = BoardView;
+
+
+/***/ },
+/* 88 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Model = __webpack_require__(2).Model;
+	var BoardModel = __webpack_require__(81);
+	var _ = __webpack_require__(89);
+
+	var AppModel = Model.extend({
+	  relations: {
+	    board: BoardModel
+	  },
+	  initialize: function () {
+	    this.set('count', 1);
+	  }
+	});
+
+	module.exports = AppModel;
+
+
+/***/ },
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -26019,33 +26147,13 @@
 
 
 /***/ },
-/* 84 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Model = __webpack_require__(2).Model;
-	var BoardModel = __webpack_require__(81);
-	var _ = __webpack_require__(83);
-
-	var AppModel = Model.extend({
-	  relations: {
-	    boardModel: BoardModel
-	  },
-	  initialize: function () {
-	    this.set('count', 1);
-	  }
-	});
-
-	module.exports = AppModel;
-
+	var Template=__webpack_require__(91);var template=new Template([{"t":7,"e":"a","a":{"class":"js-clicker"},"f":["click me"]},"\nBoard ",{"t":2,"r":"board.id"},"\n",{"t":7,"e":"div","f":["App view. Name: ",{"t":2,"r":"name"}]},"\n",{"t":8,"r":"BoardView"},"\n"]);module.exports=template;template.setPartials({"BoardView":__webpack_require__(96)});
 
 /***/ },
-/* 85 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Template=__webpack_require__(86);var template=new Template([{"t":7,"e":"a","a":{"class":"js-clicker"},"f":["click me"]},"\n",{"t":7,"e":"div","f":["App view. Name: ",{"t":2,"r":"name"}]},"\n",{"t":8,"r":"BoardView"},"\n"]);module.exports=template;template.setPartials({"BoardView":__webpack_require__(91)});
-
-/***/ },
-/* 86 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26056,8 +26164,8 @@
 	'use strict';
 
 	var _ = __webpack_require__(5);
-	var templateToVdom = __webpack_require__(87);
-	var ractiveTypes = __webpack_require__(88);
+	var templateToVdom = __webpack_require__(92);
+	var ractiveTypes = __webpack_require__(93);
 	var Context = __webpack_require__(8);
 	var logger = __webpack_require__(17);
 
@@ -26269,7 +26377,7 @@
 	module.exports = Template;
 
 /***/ },
-/* 87 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26283,9 +26391,9 @@
 	var tungsten = __webpack_require__(10);
 	var Context = __webpack_require__(8);
 	var logger = __webpack_require__(17);
-	var ractiveTypes = __webpack_require__(88);
+	var ractiveTypes = __webpack_require__(93);
 	var htmlToVdom = __webpack_require__(63);
-	var FocusHook = __webpack_require__(89);
+	var FocusHook = __webpack_require__(94);
 	var exports = {};
 
 	var HTMLCommentWidget = __webpack_require__(64);
@@ -26674,7 +26782,7 @@
 	module.exports = exports;
 
 /***/ },
-/* 88 */
+/* 93 */
 /***/ function(module, exports) {
 
 	/**
@@ -26746,7 +26854,7 @@
 	module.exports = ractiveTypes;
 
 /***/ },
-/* 89 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26758,7 +26866,7 @@
 
 	'use strict';
 
-	var featureDetect = __webpack_require__(90);
+	var featureDetect = __webpack_require__(95);
 
 	var isiOS = (function() {
 	  if (typeof featureDetect.isiOS === 'function') {
@@ -26789,7 +26897,7 @@
 
 
 /***/ },
-/* 90 */
+/* 95 */
 /***/ function(module, exports) {
 
 	/**
@@ -26808,10 +26916,22 @@
 	};
 
 /***/ },
-/* 91 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Template=__webpack_require__(86);var template=new Template([{"t":7,"e":"div","a":{"class":"js-board-view"},"f":["\n    ",{"t":7,"e":"div","a":{"class":"js-bv-header"},"f":["Board View: ",{"t":2,"r":"count"}]},"\n    ",{"t":7,"e":"a","a":{"class":"js-modle"},"f":["here"]},"\n  ",{"t":2,"r":"modeldata"},"\n"]},"\n"]);module.exports=template;
+	var Template=__webpack_require__(91);var template=new Template([{"t":7,"e":"div","a":{"class":"js-board-view"},"f":["\n    ",{"t":7,"e":"div","a":{"class":"js-bv-header"},"f":["Board View: ",{"t":2,"r":"count"}]},"\n    ",{"t":7,"e":"a","a":{"class":"js-modle"},"f":["here"]},"\n",{"t":4,"r":"board","f":["        ",{"t":8,"r":"RowView"},"\n"]}]},"\n"]);module.exports=template;template.setPartials({"RowView":__webpack_require__(97)});
+
+/***/ },
+/* 97 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Template=__webpack_require__(91);var template=new Template([{"t":7,"e":"div","a":{"id":[{"t":2,"r":"id"}],"class":"js-row-view"},"f":["\n",{"t":4,"r":"squares","f":["        ",{"t":8,"r":"SquareView"},"\n"]}]},"\n"]);module.exports=template;template.setPartials({"SquareView":__webpack_require__(98)});
+
+/***/ },
+/* 98 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Template=__webpack_require__(91);var template=new Template([{"t":7,"e":"div","a":{"id":[{"t":2,"r":"id"}],"class":["js-square-view ",{"t":2,"r":"color"}]},"f":["\n    ",{"t":2,"r":"id"},"\n"]},"\n"]);module.exports=template;
 
 /***/ }
 /******/ ]);

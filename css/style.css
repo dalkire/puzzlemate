@@ -1,0 +1,17 @@
+.js-square-view {
+    float: left;
+    height: 40px;
+    width: 40px;
+}
+
+.js-row-view {
+    clear: both;
+}
+
+.b {
+    background-color: #333;
+}
+
+.w {
+    background-color: #DDD;
+}
