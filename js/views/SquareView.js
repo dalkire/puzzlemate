@@ -1,22 +1,17 @@
 /**
-* Full Chessboard View
+* Single Square View
 */
 var View = require('tungstenjs/adaptors/backbone').View;
-var BoardModel = require('../models/BoardModel');
+var SquareModel = require('../models/SquareModel');
 
-var BoardView = View.extend({
-  model: new BoardModel(),
+var SquareView = View.extend({
+  model: new SquareModel(),
   events: {
-    'click .js-modle': 'clickedthis',
-    'click .js-bv-header': 'handleHeaderClick'
+    'mouseenter .js-square-view': 'mouseEnter'
   },
-  clickedthis: function () {
-    console.log('clicked js-modle');
-    this.model.set('count', 500);
-  },
-  handleHeaderClick: function () {
-    console.log('header click');
+  mouseEnter: function () {
+    console.log(this.model.get('id'));
   }
 });
 
-module.exports = BoardView;
+module.exports = SquareView;

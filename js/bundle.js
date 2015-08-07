@@ -24550,27 +24550,22 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	* Full Chessboard View
+	* Single Square View
 	*/
 	var View = __webpack_require__(2).View;
-	var BoardModel = __webpack_require__(81);
+	var SquareModel = __webpack_require__(85);
 
-	var BoardView = View.extend({
-	  model: new BoardModel(),
+	var SquareView = View.extend({
+	  model: new SquareModel(),
 	  events: {
-	    'click .js-modle': 'clickedthis',
-	    'click .js-bv-header': 'handleHeaderClick'
+	    'mouseenter .js-square-view': 'mouseEnter'
 	  },
-	  clickedthis: function () {
-	    console.log('clicked js-modle');
-	    this.model.set('count', 500);
-	  },
-	  handleHeaderClick: function () {
-	    console.log('header click');
+	  mouseEnter: function () {
+	    console.log(this.model.get('id'));
 	  }
 	});
 
-	module.exports = BoardView;
+	module.exports = SquareView;
 
 
 /***/ },
