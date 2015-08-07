@@ -47,7 +47,7 @@
 	var AppView = __webpack_require__(1);
 	var AppModel = __webpack_require__(88);
 	var template = __webpack_require__(90);
-
+	console.log('REQUIRE FROM MUSTACHE: ', template);
 	module.exports = new AppView({
 	  el: '#appwrapper',
 	  template: template,
@@ -24127,7 +24127,7 @@
 	    var serializedModel = this.context || this.serialize();
 	    var initialTree = this.vtree || this.compiledTemplate.toVdom(this.serialize(), true);
 	    this.vtree = tungsten.updateTree(this.el, initialTree, this.compiledTemplate.toVdom(serializedModel));
-
+	console.log('>VTREE<| ', this.vtree);
 	    // Clear any passed context
 	    this.context = null;
 
@@ -24251,6 +24251,7 @@
 	 * @param {Object}   parentView  Parent View passed to child view constructor
 	 */
 	function BackboneViewWidget(template, childView, context, parentView) {
+	console.log('TEMPLATE: ', template);
 	  this.template = template;
 	  this.context = context;
 	  this.parentView = parentView;
@@ -26150,7 +26151,7 @@
 /* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Template=__webpack_require__(91);var template=new Template([{"t":7,"e":"a","a":{"class":"js-clicker"},"f":["click me"]},"\nBoard ",{"t":2,"r":"board.id"},"\n",{"t":7,"e":"div","f":["App view. Name: ",{"t":2,"r":"name"}]},"\n",{"t":8,"r":"BoardView"},"\n"]);module.exports=template;template.setPartials({"BoardView":__webpack_require__(96)});
+	var Template=__webpack_require__(91);var template=new Template([{"t":7,"e":"a","a":{"class":"js-clicker"},"f":["click me"]},"\nBoard\n",{"t":7,"e":"div","f":["App view. Name: ",{"t":2,"r":"name"}]},"\n",{"t":8,"r":"BoardView"},"\n"]);module.exports=template;template.setPartials({"BoardView":__webpack_require__(96)});
 
 /***/ },
 /* 91 */
@@ -26341,7 +26342,8 @@
 	Template.prototype.attachView = function(view, widgetWrapper) {
 	  var templateObj = _.clone(this.templateObj);
 	  templateObj.root = true;
-	  // If this view is the top level wrapper, create a fake element to wrap it in
+	  // If this view is the top level wrapper, create a fake element to wrap
+	  // it in
 	  if (!view.parentView) {
 	    // Create wrapper element based on view's element
 	    templateObj = {
@@ -26349,23 +26351,29 @@
 	      'e': view.el.nodeName,
 	      'f': templateObj
 	    };
-	    // If there's a mismatch in childNode counts, it's usually extra whitespace from the server
+	    // If there's a mismatch in childNode counts, it's usually extra
+	    // whitespace from the server
 	    // We can trim those off so that the VTree is unaffected during lookups
-	    // Since this is in the form of whitespace around the template, it's a simple type check on the first and last node
+	    // Since this is in the form of whitespace around the template, it's a
+	    //simple type check on the first and last node
 	    if (!view.options.dynamicInitialize && templateObj.f.length !== view.el.childNodes.length) {
-	      // If the first part of the template is a string or the first node isn't a textNode, assume that's fine
+	      // If the first part of the template is a string or the first node
+	      // isn't a textNode, assume that's fine
 	      if (typeof templateObj.f[0] !== 'string' && view.el.childNodes[0] && view.el.childNodes[0].nodeType === 3) {
 	        view.el.removeChild(view.el.childNodes[0]);
 	      }
-	      // If the last part of the template is a string or the last node isn't a textNode, assume that's fine
+	      // If the last part of the template is a string or the last node isn't
+	      // a textNode, assume that's fine
 	      var lastNode = view.el.childNodes[view.el.childNodes.length - 1];
 	      if (typeof templateObj.f[templateObj.f.length - 1] !== 'string' && lastNode && lastNode.nodeType === 3) {
 	        view.el.removeChild(lastNode);
 	      }
-
+	console.log('templateObj.f: ', templateObj.f);
+	console.log('view.el.childNodes: ', view.el.childNodes);
 	      // If neither of the above, something's borked
 	      if (templateObj.f.length !== view.el.childNodes.length) {
-	        // This is also logged if there are HTML comments in your template; @todo find an alternative solution
+	        // This is also logged if there are HTML comments in your template;
+	        // @todo find an alternative solution
 	        logger.info('DOM does not match given template, consider using dynamicInitialize.');
 	      }
 	    }
@@ -26375,6 +26383,7 @@
 	};
 
 	module.exports = Template;
+
 
 /***/ },
 /* 92 */
