@@ -1,10 +1,10 @@
 var Model = require('tungstenjs/adaptors/backbone').Model;
-var BoardModel = require('./BoardModel');
+var RowCollection = require('../collections/RowCollection');
 var _ = require('underscore');
 
 var AppModel = Model.extend({
   relations: {
-    board: BoardModel
+    rows: RowCollection
   },
   initialize: function () {
     this.set('count', 1);

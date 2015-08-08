@@ -13,8 +13,8 @@ app.engine('mustache', hoganExpress);
 app.set('views', __dirname + '/templates');
 
 var partials = {}, name = '';
-_.forEach(fs.readdirSync('templates'), function(fileName) {
-  name = fileName.substr(0, fileName.indexOf('.mustache'));
+_.forEach(fs.readdirSync('templates'), function(filename) {
+  name = filename.substr(0, filename.indexOf('.mustache'));
   partials[name] = name;
 });
 

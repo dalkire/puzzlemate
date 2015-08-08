@@ -6,10 +6,10 @@ var RowModel = require('../models/RowModel');
 var SquareView = require('../views/SquareView');
 
 var RowView = View.extend({
+  model: new RowModel(),
   childViews: {
     'js-square-view': SquareView
-  },
-  model: new RowModel()
+  }
 });
 
 module.exports = RowView;

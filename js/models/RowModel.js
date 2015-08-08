@@ -1,9 +1,9 @@
 var Model = require('tungstenjs/adaptors/backbone').Model;
-var Squares = require('../collections/Squares');
+var SquareCollection = require('../collections/SquareCollection');
 
 var Row = Model.extend({
   relations: {
-    squares: Squares
+    squares: SquareCollection
   }
 });
 

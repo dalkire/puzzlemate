@@ -1,6 +1,6 @@
 
 (function () {
-  var board = [];
+  var rows = [];
   var columns = ['','a','b','c','d','e','f','g','h'];
 
   for (var i = 8; i >= 1; i--) {
@@ -17,7 +17,7 @@
       });
     }
 
-    board.push(row);
+    rows.push(row);
   }
 
   var data = {
@@ -25,7 +25,7 @@
     numRows: 17,
     numCols: 14,
     count: 7,
-    board: board
+    rows: rows
   };
 
   if (typeof window === 'undefined') {

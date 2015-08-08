@@ -1,4 +1,6 @@
 <a class="js-clicker">click me</a>
 Board
 <div>App view. Name: {{name}}</div>
-{{> BoardView}}
+{{#rows}}
+    {{> RowView}}
+{{/rows}}

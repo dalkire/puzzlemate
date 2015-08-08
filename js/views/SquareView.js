@@ -7,7 +7,7 @@ var SquareModel = require('../models/SquareModel');
 var SquareView = View.extend({
   model: new SquareModel(),
   events: {
-    'mouseenter .js-square-view': 'mouseEnter'
+    'click .js-square-id': 'mouseEnter'
   },
   mouseEnter: function () {
     console.log(this.model.get('id'));

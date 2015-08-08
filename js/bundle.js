@@ -45,8 +45,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppView = __webpack_require__(1);
-	var AppModel = __webpack_require__(88);
-	var template = __webpack_require__(90);
+	var AppModel = __webpack_require__(85);
+	var template = __webpack_require__(88);
 	console.log('REQUIRE FROM MUSTACHE: ', template);
 	module.exports = new AppView({
 	  el: '#appwrapper',
@@ -66,11 +66,11 @@
 
 	var TungstenBackboneBase = __webpack_require__(2);
 	var View = TungstenBackboneBase.View;
-	var BoardView = __webpack_require__(80);
+	var RowView = __webpack_require__(80);
 
 	var AppView = View.extend({
 	  childViews: {
-	    'js-board-view': BoardView
+	    'js-row-view': RowView
 	  },
 	  events: {
 	    'click .js-clicker': 'clickedMyApp'
@@ -24383,34 +24383,20 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
-	* Full Chessboard View
-	*/
+	 * Full Chessboard View
+	 */
 	var View = __webpack_require__(2).View;
-	var BoardModel = __webpack_require__(81);
-	var RowView = __webpack_require__(86);
+	var RowModel = __webpack_require__(81);
+	var SquareView = __webpack_require__(84);
 
-	var BoardView = View.extend({
+	var RowView = View.extend({
+	  model: new RowModel(),
 	  childViews: {
-	    'js-row-view': RowView
-	  },
-	  // relations: {
-	  //   rows: Rows
-	  // },
-	  model: new BoardModel(),
-	  events: {
-	    'click .js-modle': 'clickedthis',
-	    'click .js-bv-header': 'handleHeaderClick'
-	  },
-	  clickedthis: function () {
-	    console.log('clicked js-modle');
-	    this.model.set('count', 500);
-	  },
-	  handleHeaderClick: function () {
-	    console.log('header click');
+	    'js-square-view': SquareView
 	  }
 	});
 
-	module.exports = BoardView;
+	module.exports = RowView;
 
 
 /***/ },
@@ -24418,74 +24404,11 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Model = __webpack_require__(2).Model;
-	var Rows = __webpack_require__(82);
-	// var _ = require('underscore');
-
-	var BoardModel = Model.extend({
-	  relations: {
-	    rows: Rows
-	  },
-	  setCount: function (n) {
-	    this.set('count', n);
-	  }
-	  // initialize: function () {
-	  //   this.board = this.initBoard();
-	  //   this.printSquares();
-	  //   this.modeldata = 'inmodel';
-	  // },
-	  // initBoard: function () {
-	  //   var board = [[],[],[],[],[],[],[],[]];
-	  //   var columns = ['a','b','c','d','e','f','g','h'];
-
-	  //   for (var i = 0; i < 8; i++) {
-	  //     for (var j = 0; j < 8; j++) {
-	  //       board[i][j] = new SquareModel({
-	  //         id: columns[j] + (i + 1)
-	  //       });
-	  //     }
-	  //   }
-
-	  //   return board;
-	  // },
-	  // printSquares: function () {
-	  //   _.each(this.board, function (row) {
-	  //     _.each(row, function (square) {
-	  //       // console.log(square.get('id'));
-	  //     });
-	  //   });
-	  // }
-	});
-
-	module.exports = BoardModel;
-
-
-/***/ },
-/* 82 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Collection of board rows.
-	 */
-	var Collection = __webpack_require__(2).Collection;
-	var RowModel = __webpack_require__(83);
-
-	var Rows = Collection.extend({
-	  model: RowModel
-	});
-
-	module.exports = Rows;
-
-
-/***/ },
-/* 83 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Model = __webpack_require__(2).Model;
-	var Squares = __webpack_require__(84);
+	var SquareCollection = __webpack_require__(82);
 
 	var Row = Model.extend({
 	  relations: {
-	    squares: Squares
+	    squares: SquareCollection
 	  }
 	});
 
@@ -24493,14 +24416,14 @@
 
 
 /***/ },
-/* 84 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Collection of row squares.
 	 */
 	var Collection = __webpack_require__(2).Collection;
-	var SquareModel = __webpack_require__(85);
+	var SquareModel = __webpack_require__(83);
 
 	var Squares = Collection.extend({
 	  model: SquareModel
@@ -24510,7 +24433,7 @@
 
 
 /***/ },
-/* 85 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Model = __webpack_require__(2).Model;
@@ -24525,40 +24448,19 @@
 
 
 /***/ },
-/* 86 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Full Chessboard View
-	 */
-	var View = __webpack_require__(2).View;
-	var RowModel = __webpack_require__(83);
-	var SquareView = __webpack_require__(87);
-
-	var RowView = View.extend({
-	  childViews: {
-	    'js-square-view': SquareView
-	  },
-	  model: new RowModel()
-	});
-
-	module.exports = RowView;
-
-
-/***/ },
-/* 87 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	* Single Square View
 	*/
 	var View = __webpack_require__(2).View;
-	var SquareModel = __webpack_require__(85);
+	var SquareModel = __webpack_require__(83);
 
 	var SquareView = View.extend({
 	  model: new SquareModel(),
 	  events: {
-	    'mouseenter .js-square-view': 'mouseEnter'
+	    'click .js-square-id': 'mouseEnter'
 	  },
 	  mouseEnter: function () {
 	    console.log(this.model.get('id'));
@@ -24569,16 +24471,16 @@
 
 
 /***/ },
-/* 88 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Model = __webpack_require__(2).Model;
-	var BoardModel = __webpack_require__(81);
-	var _ = __webpack_require__(89);
+	var RowCollection = __webpack_require__(86);
+	var _ = __webpack_require__(87);
 
 	var AppModel = Model.extend({
 	  relations: {
-	    board: BoardModel
+	    rows: RowCollection
 	  },
 	  initialize: function () {
 	    this.set('count', 1);
@@ -24589,7 +24491,24 @@
 
 
 /***/ },
-/* 89 */
+/* 86 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Collection of board rows.
+	 */
+	var Collection = __webpack_require__(2).Collection;
+	var RowModel = __webpack_require__(81);
+
+	var Rows = Collection.extend({
+	  model: RowModel
+	});
+
+	module.exports = Rows;
+
+
+/***/ },
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -26143,13 +26062,13 @@
 
 
 /***/ },
-/* 90 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Template=__webpack_require__(91);var template=new Template([{"t":7,"e":"a","a":{"class":"js-clicker"},"f":["click me"]},"\nBoard\n",{"t":7,"e":"div","f":["App view. Name: ",{"t":2,"r":"name"}]},"\n",{"t":8,"r":"BoardView"},"\n"]);module.exports=template;template.setPartials({"BoardView":__webpack_require__(96)});
+	var Template=__webpack_require__(89);var template=new Template([{"t":7,"e":"a","a":{"class":"js-clicker"},"f":["click me"]},"\nBoard\n",{"t":7,"e":"div","f":["App view. Name: ",{"t":2,"r":"name"}]},"\n",{"t":4,"r":"rows","f":["    ",{"t":8,"r":"RowView"},"\n"]}]);module.exports=template;template.setPartials({"RowView":__webpack_require__(94)});
 
 /***/ },
-/* 91 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26160,8 +26079,8 @@
 	'use strict';
 
 	var _ = __webpack_require__(5);
-	var templateToVdom = __webpack_require__(92);
-	var ractiveTypes = __webpack_require__(93);
+	var templateToVdom = __webpack_require__(90);
+	var ractiveTypes = __webpack_require__(91);
 	var Context = __webpack_require__(8);
 	var logger = __webpack_require__(17);
 
@@ -26381,7 +26300,7 @@
 
 
 /***/ },
-/* 92 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26395,9 +26314,9 @@
 	var tungsten = __webpack_require__(10);
 	var Context = __webpack_require__(8);
 	var logger = __webpack_require__(17);
-	var ractiveTypes = __webpack_require__(93);
+	var ractiveTypes = __webpack_require__(91);
 	var htmlToVdom = __webpack_require__(63);
-	var FocusHook = __webpack_require__(94);
+	var FocusHook = __webpack_require__(92);
 	var exports = {};
 
 	var HTMLCommentWidget = __webpack_require__(64);
@@ -26786,7 +26705,7 @@
 	module.exports = exports;
 
 /***/ },
-/* 93 */
+/* 91 */
 /***/ function(module, exports) {
 
 	/**
@@ -26858,7 +26777,7 @@
 	module.exports = ractiveTypes;
 
 /***/ },
-/* 94 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26870,7 +26789,7 @@
 
 	'use strict';
 
-	var featureDetect = __webpack_require__(95);
+	var featureDetect = __webpack_require__(93);
 
 	var isiOS = (function() {
 	  if (typeof featureDetect.isiOS === 'function') {
@@ -26901,7 +26820,7 @@
 
 
 /***/ },
-/* 95 */
+/* 93 */
 /***/ function(module, exports) {
 
 	/**
@@ -26920,22 +26839,16 @@
 	};
 
 /***/ },
-/* 96 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Template=__webpack_require__(91);var template=new Template([{"t":7,"e":"div","a":{"class":"js-board-view"},"f":["\n    ",{"t":7,"e":"div","a":{"class":"js-bv-header"},"f":["Board View: ",{"t":2,"r":"count"}]},"\n    ",{"t":7,"e":"a","a":{"class":"js-modle"},"f":["here"]},"\n",{"t":4,"r":"board","f":["        ",{"t":8,"r":"RowView"},"\n"]}]},"\n"]);module.exports=template;template.setPartials({"RowView":__webpack_require__(97)});
+	var Template=__webpack_require__(89);var template=new Template([{"t":7,"e":"div","a":{"id":[{"t":2,"r":"id"}],"class":"js-row-view"},"f":["\n",{"t":4,"r":"squares","f":["        ",{"t":8,"r":"SquareView"},"\n"]}]},"\n"]);module.exports=template;template.setPartials({"SquareView":__webpack_require__(95)});
 
 /***/ },
-/* 97 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Template=__webpack_require__(91);var template=new Template([{"t":7,"e":"div","a":{"id":[{"t":2,"r":"id"}],"class":"js-row-view"},"f":["\n",{"t":4,"r":"squares","f":["        ",{"t":8,"r":"SquareView"},"\n"]}]},"\n"]);module.exports=template;template.setPartials({"SquareView":__webpack_require__(98)});
-
-/***/ },
-/* 98 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Template=__webpack_require__(91);var template=new Template([{"t":7,"e":"div","a":{"id":[{"t":2,"r":"id"}],"class":["js-square-view ",{"t":2,"r":"color"}]},"f":["\n    ",{"t":2,"r":"id"},"\n"]},"\n"]);module.exports=template;
+	var Template=__webpack_require__(89);var template=new Template([{"t":7,"e":"div","a":{"id":[{"t":2,"r":"id"}],"class":["js-square-view ",{"t":2,"r":"color"}]},"f":["\n    ",{"t":7,"e":"div","a":{"class":"js-square-id"},"f":["-",{"t":2,"r":"id"}]},"\n"]},"\n"]);module.exports=template;
 
 /***/ }
 /******/ ]);

@@ -5,11 +5,11 @@
 
 var TungstenBackboneBase = require('tungstenjs/adaptors/backbone');
 var View = TungstenBackboneBase.View;
-var BoardView = require('./BoardView');
+var RowView = require('./RowView');
 
 var AppView = View.extend({
   childViews: {
-    'js-board-view': BoardView
+    'js-row-view': RowView
   },
   events: {
     'click .js-clicker': 'clickedMyApp'
