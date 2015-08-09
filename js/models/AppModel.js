@@ -6,6 +6,9 @@ var AppModel = Model.extend({
   relations: {
     rows: RowCollection
   },
+  defaults: {
+    rows: []
+  },
   initialize: function () {
     this.set('count', 1);
   }

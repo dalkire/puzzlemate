@@ -76,9 +76,9 @@
 	    'click .js-clicker': 'clickedMyApp'
 	  },
 	  clickedMyApp: function () {
-	    console.log('clicked');
-	console.log(this);
-	    this.model.set('name', 'horatio');
+	//     console.log('clicked');
+	// console.log(this);
+	//     this.model.set('name', 'horatio');
 	  }
 	});
 
@@ -24482,6 +24482,9 @@
 	  relations: {
 	    rows: RowCollection
 	  },
+	  defaults: {
+	    rows: []
+	  },
 	  initialize: function () {
 	    this.set('count', 1);
 	  }
@@ -26065,7 +26068,7 @@
 /* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Template=__webpack_require__(89);var template=new Template([{"t":7,"e":"a","a":{"class":"js-clicker"},"f":["click me"]},"\nBoard\n",{"t":7,"e":"div","f":["App view. Name: ",{"t":2,"r":"name"}]},"\n",{"t":4,"r":"rows","f":["    ",{"t":8,"r":"RowView"},"\n"]}]);module.exports=template;template.setPartials({"RowView":__webpack_require__(94)});
+	var Template=__webpack_require__(89);var template=new Template([{"t":7,"e":"div","a":{"id":"app"},"f":["\n    ",{"t":7,"e":"a","a":{"class":"js-clicker"},"f":["click me"]},"\n    ",{"t":7,"e":"span","f":["Board"]},"\n    ",{"t":7,"e":"div","f":["App view. Name: ",{"t":2,"r":"name"}]},"\n",{"t":4,"r":"rows","f":["        ",{"t":8,"r":"RowView"},"\n"]}]},"\n"]);module.exports=template;template.setPartials({"RowView":__webpack_require__(94)});
 
 /***/ },
 /* 89 */
