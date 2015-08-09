@@ -25,8 +25,14 @@
     numRows: 17,
     numCols: 14,
     count: 7,
-    rows: rows
+    rows: rows,
+    pieceChoices: [
+      {id:'wp'},{id:'wb'},{id:'wn'},{id:'wr'},{id:'wq'},{id:'wk'},
+      {id:'bp'},{id:'bb'},{id:'bn'},{id:'br'},{id:'bq'},{id:'bk'}
+    ]
   };
+
+  data.pieceChoices[0].selected = true;
 
   if (typeof window === 'undefined') {
     module.exports = data;

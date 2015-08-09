@@ -7,6 +7,7 @@ var app = express();
 
 app.use('/js', express.static(__dirname + '/js'));
 app.use('/css', express.static(__dirname + '/css'));
+app.use('/images', express.static(__dirname + '/images'));
 
 app.set('view engine', 'mustache');
 app.engine('mustache', hoganExpress);

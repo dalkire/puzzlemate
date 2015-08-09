@@ -1,7 +1,78 @@
-.js-square-view {
+#board {
+    height: 320px;
+}
+
+.js-square-view, .js-piece-choice {
     float: left;
     height: 40px;
     width: 40px;
+}
+
+.js-square {
+    height: 100%;
+    width: 100%;
+}
+
+.js-piece-choice.selected {
+    border: 2px solid #D00;
+    width: 36px;
+    height: 36px;
+    background-position: -2px -2px;
+}
+
+#piece-selector {
+    margin-top: 10px;
+    margin-left: 40px;
+    height: 80px;
+    width: 240px;
+}
+
+.js-square.bb, .js-piece-choice.bb {
+    background-image: url('../images/bb.png');
+}
+
+.js-square.bk, .js-piece-choice.bk {
+    background-image: url('../images/bk.png');
+}
+
+.js-square.bn, .js-piece-choice.bn {
+    background-image: url('../images/bn.png');
+}
+
+.js-square.bp, .js-piece-choice.bp {
+    background-image: url('../images/bp.png');
+}
+
+.js-square.bq, .js-piece-choice.bq {
+    background-image: url('../images/bq.png');
+}
+
+.js-square.br, .js-piece-choice.br {
+    background-image: url('../images/br.png');
+}
+
+.js-square.wb, .js-piece-choice.wb {
+    background-image: url('../images/wb.png');
+}
+
+.js-square.wk, .js-piece-choice.wk {
+    background-image: url('../images/wk.png');
+}
+
+.js-square.wn, .js-piece-choice.wn {
+    background-image: url('../images/wn.png');
+}
+
+.js-square.wp, .js-piece-choice.wp {
+    background-image: url('../images/wp.png');
+}
+
+.js-square.wq, .js-piece-choice.wq {
+    background-image: url('../images/wq.png');
+}
+
+.js-square.wr, .js-piece-choice.wr {
+    background-image: url('../images/wr.png');
 }
 
 .js-row-view {

@@ -45,8 +45,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var AppView = __webpack_require__(1);
-	var AppModel = __webpack_require__(85);
-	var template = __webpack_require__(88);
+	var AppModel = __webpack_require__(87);
+	var template = __webpack_require__(91);
 	console.log('REQUIRE FROM MUSTACHE: ', template);
 	module.exports = new AppView({
 	  el: '#appwrapper',
@@ -67,10 +67,12 @@
 	var TungstenBackboneBase = __webpack_require__(2);
 	var View = TungstenBackboneBase.View;
 	var RowView = __webpack_require__(80);
+	var PieceChoiceView = __webpack_require__(85);
 
 	var AppView = View.extend({
 	  childViews: {
-	    'js-row-view': RowView
+	    'js-row-view': RowView,
+	    'js-piece-choice-view': PieceChoiceView
 	  },
 	  events: {
 	    'click .js-clicker': 'clickedMyApp'
@@ -24127,7 +24129,7 @@
 	    var serializedModel = this.context || this.serialize();
 	    var initialTree = this.vtree || this.compiledTemplate.toVdom(this.serialize(), true);
 	    this.vtree = tungsten.updateTree(this.el, initialTree, this.compiledTemplate.toVdom(serializedModel));
-	console.log('>VTREE<| ', this.vtree);
+
 	    // Clear any passed context
 	    this.context = null;
 
@@ -24251,7 +24253,6 @@
 	 * @param {Object}   parentView  Parent View passed to child view constructor
 	 */
 	function BackboneViewWidget(template, childView, context, parentView) {
-	console.log('TEMPLATE: ', template);
 	  this.template = template;
 	  this.context = context;
 	  this.parentView = parentView;
@@ -24460,10 +24461,11 @@
 	var SquareView = View.extend({
 	  model: new SquareModel(),
 	  events: {
-	    'click .js-square-id': 'mouseEnter'
+	    'click .js-square': 'mouseEnter'
 	  },
 	  mouseEnter: function () {
 	    console.log(this.model.get('id'));
+	    console.log(this.model.set('piece', 'bp'));
 	  }
 	});
 
@@ -24474,19 +24476,62 @@
 /* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/**
+	* Single Square View
+	*/
+	var View = __webpack_require__(2).View;
+	var PieceChoiceModel = __webpack_require__(86);
+
+	var PieceChoiceView = View.extend({
+	  model: new PieceChoiceModel(),
+	  events: {
+	    'click .js-piece-choice': 'handleClick'
+	  },
+	  handleClick: function () {
+	    this.model.trigger('selectedPiece', this);
+	  }
+	});
+
+	module.exports = PieceChoiceView;
+
+
+/***/ },
+/* 86 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var Model = __webpack_require__(2).Model;
-	var RowCollection = __webpack_require__(86);
-	var _ = __webpack_require__(87);
+
+	var Square = Model.extend({
+	  initialize: function (options) {
+	    
+	  }
+	});
+
+	module.exports = Square;
+
+
+/***/ },
+/* 87 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Model = __webpack_require__(2).Model;
+	var RowCollection = __webpack_require__(88);
+	var PieceChoiceCollection = __webpack_require__(89);
+	var _ = __webpack_require__(90);
 
 	var AppModel = Model.extend({
 	  relations: {
-	    rows: RowCollection
+	    rows: RowCollection,
+	    pieceChoices: PieceChoiceCollection
 	  },
 	  defaults: {
 	    rows: []
 	  },
 	  initialize: function () {
-	    this.set('count', 1);
+	    this.listenTo(this.get('pieceChoices'), 'selectedPiece', this.selectedPiece);
+	  },
+	  selectedPiece: function (selectedModel) {
+	    console.log(selectedModel);
 	  }
 	});
 
@@ -24494,7 +24539,7 @@
 
 
 /***/ },
-/* 86 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -24511,7 +24556,24 @@
 
 
 /***/ },
-/* 87 */
+/* 89 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Collection of row squares.
+	 */
+	var Collection = __webpack_require__(2).Collection;
+	var PieceChoiceModel = __webpack_require__(86);
+
+	var PieceChoices = Collection.extend({
+	  model: PieceChoiceModel
+	});
+
+	module.exports = PieceChoices;
+
+
+/***/ },
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -26065,13 +26127,13 @@
 
 
 /***/ },
-/* 88 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Template=__webpack_require__(89);var template=new Template([{"t":7,"e":"div","a":{"id":"app"},"f":["\n    ",{"t":7,"e":"a","a":{"class":"js-clicker"},"f":["click me"]},"\n    ",{"t":7,"e":"span","f":["Board"]},"\n    ",{"t":7,"e":"div","f":["App view. Name: ",{"t":2,"r":"name"}]},"\n",{"t":4,"r":"rows","f":["        ",{"t":8,"r":"RowView"},"\n"]}]},"\n"]);module.exports=template;template.setPartials({"RowView":__webpack_require__(94)});
+	var Template=__webpack_require__(92);var template=new Template([{"t":7,"e":"div","a":{"id":"app"},"f":["\n    ",{"t":7,"e":"a","a":{"class":"js-clicker"},"f":["click me"]},"\n    ",{"t":7,"e":"span","f":["Board"]},"\n    ",{"t":7,"e":"div","f":["App view. Name: ",{"t":2,"r":"name"}]},"\n    ",{"t":7,"e":"div","a":{"id":"board"},"f":["\n",{"t":4,"r":"rows","f":["            ",{"t":8,"r":"RowView"},"\n"]},"    "]},"\n    ",{"t":7,"e":"div","a":{"id":"piece-selector"},"f":["\n",{"t":4,"r":"pieceChoices","f":["            ",{"t":8,"r":"PieceChoiceView"},"\n"]},"    "]},"\n"]},"\n"]);module.exports=template;template.setPartials({"RowView":__webpack_require__(97),"PieceChoiceView":__webpack_require__(99)});
 
 /***/ },
-/* 89 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26082,8 +26144,8 @@
 	'use strict';
 
 	var _ = __webpack_require__(5);
-	var templateToVdom = __webpack_require__(90);
-	var ractiveTypes = __webpack_require__(91);
+	var templateToVdom = __webpack_require__(93);
+	var ractiveTypes = __webpack_require__(94);
 	var Context = __webpack_require__(8);
 	var logger = __webpack_require__(17);
 
@@ -26303,7 +26365,7 @@
 
 
 /***/ },
-/* 90 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26317,9 +26379,9 @@
 	var tungsten = __webpack_require__(10);
 	var Context = __webpack_require__(8);
 	var logger = __webpack_require__(17);
-	var ractiveTypes = __webpack_require__(91);
+	var ractiveTypes = __webpack_require__(94);
 	var htmlToVdom = __webpack_require__(63);
-	var FocusHook = __webpack_require__(92);
+	var FocusHook = __webpack_require__(95);
 	var exports = {};
 
 	var HTMLCommentWidget = __webpack_require__(64);
@@ -26708,7 +26770,7 @@
 	module.exports = exports;
 
 /***/ },
-/* 91 */
+/* 94 */
 /***/ function(module, exports) {
 
 	/**
@@ -26780,7 +26842,7 @@
 	module.exports = ractiveTypes;
 
 /***/ },
-/* 92 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -26792,7 +26854,7 @@
 
 	'use strict';
 
-	var featureDetect = __webpack_require__(93);
+	var featureDetect = __webpack_require__(96);
 
 	var isiOS = (function() {
 	  if (typeof featureDetect.isiOS === 'function') {
@@ -26823,7 +26885,7 @@
 
 
 /***/ },
-/* 93 */
+/* 96 */
 /***/ function(module, exports) {
 
 	/**
@@ -26842,16 +26904,22 @@
 	};
 
 /***/ },
-/* 94 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Template=__webpack_require__(89);var template=new Template([{"t":7,"e":"div","a":{"id":[{"t":2,"r":"id"}],"class":"js-row-view"},"f":["\n",{"t":4,"r":"squares","f":["        ",{"t":8,"r":"SquareView"},"\n"]}]},"\n"]);module.exports=template;template.setPartials({"SquareView":__webpack_require__(95)});
+	var Template=__webpack_require__(92);var template=new Template([{"t":7,"e":"div","a":{"id":[{"t":2,"r":"id"}],"class":"js-row-view"},"f":["\n",{"t":4,"r":"squares","f":["        ",{"t":8,"r":"SquareView"},"\n"]}]},"\n"]);module.exports=template;template.setPartials({"SquareView":__webpack_require__(98)});
 
 /***/ },
-/* 95 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Template=__webpack_require__(89);var template=new Template([{"t":7,"e":"div","a":{"id":[{"t":2,"r":"id"}],"class":["js-square-view ",{"t":2,"r":"color"}]},"f":["\n    ",{"t":7,"e":"div","a":{"class":"js-square-id"},"f":["-",{"t":2,"r":"id"}]},"\n"]},"\n"]);module.exports=template;
+	var Template=__webpack_require__(92);var template=new Template([{"t":7,"e":"div","a":{"id":[{"t":2,"r":"id"}],"class":["js-square-view ",{"t":2,"r":"color"}]},"f":["\n    ",{"t":7,"e":"div","a":{"class":["js-square ",{"t":4,"r":"piece","f":[{"t":2,"r":"piece"}]}]}},"\n"]},"\n"]);module.exports=template;
+
+/***/ },
+/* 99 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Template=__webpack_require__(92);var template=new Template([{"t":7,"e":"div","a":{"class":"js-piece-choice-view"},"f":["\n    ",{"t":7,"e":"div","a":{"class":["js-piece-choice ",{"t":2,"r":"id"},{"t":4,"r":"selected","f":[" selected"]}]}},"\n"]},"\n"]);module.exports=template;
 
 /***/ }
 /******/ ]);
