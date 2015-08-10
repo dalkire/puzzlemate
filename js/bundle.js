@@ -49,7 +49,7 @@
 	var template = __webpack_require__(91);
 	console.log('REQUIRE FROM MUSTACHE: ', template);
 	module.exports = new AppView({
-	  el: '#appwrapper',
+	  el: '#app-wrapper',
 	  template: template,
 	  model: new AppModel(window.data)
 	});
@@ -24461,11 +24461,11 @@
 	var SquareView = View.extend({
 	  model: new SquareModel(),
 	  events: {
-	    'click .js-square': 'mouseEnter'
+	    'click .js-square': 'clickedSquare'
 	  },
-	  mouseEnter: function () {
+	  clickedSquare: function () {
 	    console.log(this.model.get('id'));
-	    console.log(this.model.set('piece', 'bp'));
+	    this.model.set('piece', 'bp');
 	  }
 	});
 

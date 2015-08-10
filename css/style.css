@@ -1,3 +1,8 @@
+#app-wrapper {
+    width: 320px;
+    margin: auto;
+}
+
 #board {
     height: 320px;
 }

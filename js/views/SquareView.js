@@ -7,11 +7,11 @@ var SquareModel = require('../models/SquareModel');
 var SquareView = View.extend({
   model: new SquareModel(),
   events: {
-    'click .js-square': 'mouseEnter'
+    'click .js-square': 'clickedSquare'
   },
-  mouseEnter: function () {
+  clickedSquare: function () {
     console.log(this.model.get('id'));
-    console.log(this.model.set('piece', 'bp'));
+    this.model.set('piece', 'bp');
   }
 });
 
