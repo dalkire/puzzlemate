@@ -73,14 +73,6 @@
 	  childViews: {
 	    'js-row-view': RowView,
 	    'js-piece-choice-view': PieceChoiceView
-	  },
-	  events: {
-	    'click .js-clicker': 'clickedMyApp'
-	  },
-	  clickedMyApp: function () {
-	    console.log('clicked');
-	    this.model.set('name', 'horatio');
-	    console.log(this.model.get('rows'));
 	  }
 	});
 
@@ -24464,8 +24456,13 @@
 	    'click .js-square': 'clickedSquare'
 	  },
 	  clickedSquare: function () {
-	    console.log(this.model.get('id'));
-	    this.model.set('piece', 'bp');
+	    var selectedPiece = this.model.collection.parent.collection.parent.get('selectedPiece');
+
+	    if (this.model.get('piece') === selectedPiece) {
+	      this.model.set('piece', '');
+	    } else {
+	      this.model.set('piece', selectedPiece);
+	    }
 	  }
 	});
 
@@ -24531,7 +24528,7 @@
 	    this.listenTo(this.get('pieceChoices'), 'selectedPiece', this.selectedPiece);
 	  },
 	  selectedPiece: function (selectedModel) {
-	    console.log('selectedModel.id: ', selectedModel.get('id'));
+	    this.set('selectedPiece', selectedModel.get('id'));
 
 	    _.each(this.get('pieceChoices').models, function (pieceChoiceModel) {
 	      if (pieceChoiceModel.get('id') === selectedModel.get('id')) {
@@ -24539,10 +24536,7 @@
 	      } else {
 	        pieceChoiceModel.set('selected', false);
 	      }
-	      console.log(pieceChoiceModel.get('id'));
 	    });
-	    // console.log(this.get('pieceChoices'));
-	    // console.log(selectedModel);
 	  }
 	});
 
@@ -26141,7 +26135,7 @@
 /* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Template=__webpack_require__(92);var template=new Template([{"t":7,"e":"div","a":{"id":"app"},"f":["\n    ",{"t":7,"e":"a","a":{"class":"js-clicker"},"f":["click me"]},"\n    ",{"t":7,"e":"span","f":["Board"]},"\n    ",{"t":7,"e":"div","f":["App view. Name: ",{"t":2,"r":"name"}]},"\n    ",{"t":7,"e":"div","a":{"id":"board"},"f":["\n",{"t":4,"r":"rows","f":["            ",{"t":8,"r":"RowView"},"\n"]},"    "]},"\n    ",{"t":7,"e":"div","a":{"id":"piece-selector"},"f":["\n",{"t":4,"r":"pieceChoices","f":["            ",{"t":8,"r":"PieceChoiceView"},"\n"]},"    "]},"\n"]},"\n"]);module.exports=template;template.setPartials({"RowView":__webpack_require__(97),"PieceChoiceView":__webpack_require__(99)});
+	var Template=__webpack_require__(92);var template=new Template([{"t":7,"e":"div","a":{"id":"app"},"f":["\n    ",{"t":7,"e":"div","a":{"id":"board"},"f":["\n",{"t":4,"r":"rows","f":["            ",{"t":8,"r":"RowView"},"\n"]},"    "]},"\n    ",{"t":7,"e":"div","a":{"id":"piece-selector"},"f":["\n",{"t":4,"r":"pieceChoices","f":["            ",{"t":8,"r":"PieceChoiceView"},"\n"]},"    "]},"\n"]},"\n"]);module.exports=template;template.setPartials({"RowView":__webpack_require__(97),"PieceChoiceView":__webpack_require__(99)});
 
 /***/ },
 /* 92 */

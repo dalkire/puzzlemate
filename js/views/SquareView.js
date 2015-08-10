@@ -10,8 +10,13 @@ var SquareView = View.extend({
     'click .js-square': 'clickedSquare'
   },
   clickedSquare: function () {
-    console.log(this.model.get('id'));
-    this.model.set('piece', 'bp');
+    var selectedPiece = this.model.collection.parent.collection.parent.get('selectedPiece');
+
+    if (this.model.get('piece') === selectedPiece) {
+      this.model.set('piece', '');
+    } else {
+      this.model.set('piece', selectedPiece);
+    }
   }
 });
 

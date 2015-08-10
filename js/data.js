@@ -29,7 +29,8 @@
     pieceChoices: [
       {id:'wp'},{id:'wb'},{id:'wn'},{id:'wr'},{id:'wq'},{id:'wk'},
       {id:'bp'},{id:'bb'},{id:'bn'},{id:'br'},{id:'bq'},{id:'bk'}
-    ]
+    ],
+    selectedPiece: 'wp'
   };
 
   data.pieceChoices[0].selected = true;

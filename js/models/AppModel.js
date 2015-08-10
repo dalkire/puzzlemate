@@ -15,7 +15,7 @@ var AppModel = Model.extend({
     this.listenTo(this.get('pieceChoices'), 'selectedPiece', this.selectedPiece);
   },
   selectedPiece: function (selectedModel) {
-    console.log('selectedModel.id: ', selectedModel.get('id'));
+    this.set('selectedPiece', selectedModel.get('id'));
 
     _.each(this.get('pieceChoices').models, function (pieceChoiceModel) {
       if (pieceChoiceModel.get('id') === selectedModel.get('id')) {
@@ -23,10 +23,7 @@ var AppModel = Model.extend({
       } else {
         pieceChoiceModel.set('selected', false);
       }
-      console.log(pieceChoiceModel.get('id'));
     });
-    // console.log(this.get('pieceChoices'));
-    // console.log(selectedModel);
   }
 });
 

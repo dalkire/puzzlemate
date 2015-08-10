@@ -3,6 +3,10 @@
     margin: auto;
 }
 
+h2 {
+    text-align: center;
+}
+
 #board {
     height: 320px;
 }
@@ -85,9 +89,9 @@
 }
 
 .b {
-    background-color: #333;
+    background-color: #769656;
 }
 
 .w {
-    background-color: #DDD;
+    background-color: #EEEED2;
 }
