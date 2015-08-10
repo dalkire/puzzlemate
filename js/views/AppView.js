@@ -17,9 +17,9 @@ var AppView = View.extend({
     'click .js-clicker': 'clickedMyApp'
   },
   clickedMyApp: function () {
-//     console.log('clicked');
-// console.log(this);
-//     this.model.set('name', 'horatio');
+    console.log('clicked');
+    this.model.set('name', 'horatio');
+    console.log(this.model.get('rows'));
   }
 });
 

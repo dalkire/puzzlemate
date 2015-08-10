@@ -78,9 +78,9 @@
 	    'click .js-clicker': 'clickedMyApp'
 	  },
 	  clickedMyApp: function () {
-	//     console.log('clicked');
-	// console.log(this);
-	//     this.model.set('name', 'horatio');
+	    console.log('clicked');
+	    this.model.set('name', 'horatio');
+	    console.log(this.model.get('rows'));
 	  }
 	});
 
@@ -24488,7 +24488,7 @@
 	    'click .js-piece-choice': 'handleClick'
 	  },
 	  handleClick: function () {
-	    this.model.trigger('selectedPiece', this);
+	    this.model.trigger('selectedPiece', this.model);
 	  }
 	});
 
@@ -24531,7 +24531,18 @@
 	    this.listenTo(this.get('pieceChoices'), 'selectedPiece', this.selectedPiece);
 	  },
 	  selectedPiece: function (selectedModel) {
-	    console.log(selectedModel);
+	    console.log('selectedModel.id: ', selectedModel.get('id'));
+
+	    _.each(this.get('pieceChoices').models, function (pieceChoiceModel) {
+	      if (pieceChoiceModel.get('id') === selectedModel.get('id')) {
+	        pieceChoiceModel.set('selected', true);
+	      } else {
+	        pieceChoiceModel.set('selected', false);
+	      }
+	      console.log(pieceChoiceModel.get('id'));
+	    });
+	    // console.log(this.get('pieceChoices'));
+	    // console.log(selectedModel);
 	  }
 	});
 

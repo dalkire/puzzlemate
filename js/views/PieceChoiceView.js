@@ -10,7 +10,7 @@ var PieceChoiceView = View.extend({
     'click .js-piece-choice': 'handleClick'
   },
   handleClick: function () {
-    this.model.trigger('selectedPiece', this);
+    this.model.trigger('selectedPiece', this.model);
   }
 });
 
